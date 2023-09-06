@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked1(View view) {
         if (iAidlInterface != null) {
             try {
-                iAidlInterface.sendMessage("客户端消息" + num);
+                iAidlInterface.sendMessage("startService");
                 num++;
             } catch (RemoteException e) {
                 e.printStackTrace();
