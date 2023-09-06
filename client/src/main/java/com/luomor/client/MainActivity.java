@@ -60,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.start_service)
+    public void onViewClicked1(View view) {
+        if (iAidlInterface != null) {
+            try {
+                iAidlInterface.sendMessage("客户端消息" + num);
+                num++;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
