@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             if (messages != null && arrayAdapter != null) {
                 messages.add(message);
                 handler.sendEmptyMessage(1);
+                handlerPrinter.sendEmptyMessage(1);
             }
         }
     };
@@ -106,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(@NonNull Message msg) {
             arrayAdapter.notifyDataSetChanged();
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler handlerPrinter = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+
         }
     };
 
