@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 messages.add(message);
                 handler.sendEmptyMessage(1);
                 handlerPrinter.sendEmptyMessage(1);
+                if(message.equals("startService")) {
+                    
+                }
             }
         }
     };
