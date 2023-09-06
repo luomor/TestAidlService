@@ -12,4 +12,6 @@ interface IAidlInterface {
     void unregisterCallBack(IAidlCallBack iAidlCallBack);
     void sendMessage(String message);
     List<String> getMessages();
+
+    void startService();
 }
