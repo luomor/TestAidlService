@@ -24,6 +24,7 @@
                 <action android:name="AIDL.service"></action>
             </intent-filter>
         </service>
+        <service android:name="com.hiti.usb.service.PrinterService"/>
     </application>
 
 </manifest>
