@@ -1,34 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <ListView
-        android:id="@+id/list_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content" >
 
-    </ListView>
+        <Button
+            android:id="@+id/b_serviceStatus"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Service Status" />
 
-    <Button
-        android:id="@+id/send_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onViewClicked"
-        android:text="发送消息"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <Button
+            android:id="@+id/b_clearText"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="clear text" />
 
-    <Button
-        android:id="@+id/start_service"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onViewClicked1"
-        android:text="start"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="573dp" />
+        <TextView
+            android:id="@+id/t_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/b_serviceStatus"
+            android:layout_toRightOf="@+id/b_serviceStatus"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/send_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onViewClicked"
+                android:text="发送消息"/>
+
+            <Button
+                android:id="@+id/start_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onViewClicked1"
+                android:text="start"/>
+
+            <Button
+                android:id="@+id/b_startService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="start service"
+                android:tag="start service" />
+
+            <Button
+                android:id="@+id/b_stopService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="stop service"
+                android:tag="stop service" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/b_printerInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="printer info" />
+
+            <Button
+                android:id="@+id/b_printPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="print"
+                android:tag="print" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/b_resetPrinter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="reset printer"
+                android:tag="reset printer" />
+
+            <Button
+                android:id="@+id/b_resumeJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="resume job"
+                android:tag="resume job" />
+
+            <Button
+                android:id="@+id/b_updateFW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update firmware"
+                android:tag="Update firmware" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/b_ejectPaperJam"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="eject paper jam"
+                android:tag="eject paper jam" />
+
+            <Button
+                android:id="@+id/b_setAutoPowerOff"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="set auto power off"
+                android:tag="set auto power off" />
+
+            <Button
+                android:id="@+id/b_cleanPaperPath"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="clean paper path"
+                android:tag="clean paper path" />
+
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/t_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/m_infoView"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:background="@android:color/holo_green_light"
+                />
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

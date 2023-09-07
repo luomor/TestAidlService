@@ -11,6 +11,7 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.list_view)
     ListView listView;
+    Button m_startService, m_stopServie, m_printerInfo, m_printPhoto, m_resetPrinter, m_resumeJob,
+            m_clearText, m_serviceStatus, m_ejectJam, m_setAutoPowerOff, m_cleanPaperPath, m_updateFW;
     private IAidlInterface iAidlInterface;
     private int num;
     private List<String> messages = new ArrayList<>();
@@ -45,6 +48,19 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction(ACTION);
         intent.setPackage("com.luomor.testaidlservice");
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+
+        m_startService = (Button) findViewById(R.id.b_startService);
+        m_stopServie = (Button) findViewById(R.id.b_stopService);
+        m_printerInfo = (Button) findViewById(R.id.b_printerInfo);
+        m_printPhoto = (Button) findViewById(R.id.b_printPhoto);
+        m_resetPrinter = (Button) findViewById(R.id.b_resetPrinter);
+        m_resumeJob = (Button) findViewById(R.id.b_resumeJob);
+        m_ejectJam = (Button) findViewById(R.id.b_ejectPaperJam);
+        m_cleanPaperPath = (Button) findViewById(R.id.b_cleanPaperPath);
+        m_clearText = (Button) findViewById(R.id.b_clearText);
+        m_serviceStatus = (Button) findViewById(R.id.b_serviceStatus);
+        m_setAutoPowerOff = (Button) findViewById(R.id.b_setAutoPowerOff);
+        m_updateFW = (Button) findViewById(R.id.b_updateFW);
     }
 
 

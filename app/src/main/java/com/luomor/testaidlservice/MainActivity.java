@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.list_view)
     ListView listView;
-    Button m_startService, m_stopServie, m_printerInfo, m_printPhoto, m_resetPrinter, m_resumeJob,
-            m_clearText, m_serviceStatus, m_ejectJam, m_setAutoPowerOff, m_cleanPaperPath, m_updateFW;
     TextView m_info, m_serviceInfo;
     ImageView m_infoView;
 
@@ -94,18 +92,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), AidlService.class);
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
 
-        m_startService = (Button) findViewById(R.id.b_startService);
-        m_stopServie = (Button) findViewById(R.id.b_stopService);
-        m_printerInfo = (Button) findViewById(R.id.b_printerInfo);
-        m_printPhoto = (Button) findViewById(R.id.b_printPhoto);
-        m_resetPrinter = (Button) findViewById(R.id.b_resetPrinter);
-        m_resumeJob = (Button) findViewById(R.id.b_resumeJob);
-        m_ejectJam = (Button) findViewById(R.id.b_ejectPaperJam);
-        m_cleanPaperPath = (Button) findViewById(R.id.b_cleanPaperPath);
-        m_clearText = (Button) findViewById(R.id.b_clearText);
-        m_serviceStatus = (Button) findViewById(R.id.b_serviceStatus);
-        m_setAutoPowerOff = (Button) findViewById(R.id.b_setAutoPowerOff);
-        m_updateFW = (Button) findViewById(R.id.b_updateFW);
         m_info = (TextView) findViewById(R.id.t_info);
         m_serviceInfo = (TextView) findViewById(R.id.t_service);
         m_infoView = (ImageView) findViewById(R.id.m_infoView);
