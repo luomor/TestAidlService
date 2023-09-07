@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         if (map != null) {
                             try {
-                                iAidlInterface.sendMessage("operatePrinter_" + name);
+                                iAidlInterface.sendMessage("operatePrinter_" + map.get(name));
                                 num++;
                             } catch (RemoteException e) {
                                 e.printStackTrace();
