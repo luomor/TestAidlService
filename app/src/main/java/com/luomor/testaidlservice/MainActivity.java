@@ -172,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
                     handlerPrinter.sendEmptyMessage(1);
                 } else if(message.equals("serviceStatus")) {
                     handlerPrinter.sendEmptyMessage(10);
+                } else if(message.contains("operatePrinter_")) {
+                    handlerPrinter.sendEmptyMessage(11);
                 }
             }
         }
