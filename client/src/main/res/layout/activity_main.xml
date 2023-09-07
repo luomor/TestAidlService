@@ -44,7 +44,7 @@
         android:layout_height="wrap_content" >
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/tableRow0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -68,6 +68,13 @@
                 android:layout_height="wrap_content"
                 android:onClick="onViewClicked2"
                 android:text="重新连接"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/b_startService"
