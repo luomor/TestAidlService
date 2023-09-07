@@ -170,8 +170,26 @@ public class MainActivity extends AppCompatActivity {
                 handler.sendEmptyMessage(1);
                 if (message.equals("startService")) {
                     handlerPrinter.sendEmptyMessage(1);
+                } else if(message.equals("serviceStatus")) {
+                    handlerPrinter.sendEmptyMessage(10);
                 }
             }
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            arrayAdapter.notifyDataSetChanged();
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler handlerPrinter = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            printerControl(msg.what);
         }
     };
 
@@ -348,22 +366,6 @@ public class MainActivity extends AppCompatActivity {
             m_info.append(bu.toString());
         }
     }
-
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            arrayAdapter.notifyDataSetChanged();
-        }
-    };
-
-    @SuppressLint("HandlerLeak")
-    private Handler handlerPrinter = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            printerControl(msg.what);
-        }
-    };
 
     static Map<String, Action> printerInfoDiag;
     static Map<String, String> printPhotoPathMap;
