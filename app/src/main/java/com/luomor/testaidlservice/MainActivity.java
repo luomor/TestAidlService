@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
             if (messages != null && arrayAdapter != null) {
                 messages.add(message);
                 handler.sendEmptyMessage(1);
+                Log.i(tag, "message: " + message);
                 if (message.equals("startService")) {
                     handlerPrinter.sendEmptyMessage(1);
                 } else if(message.equals("serviceStatus")) {
