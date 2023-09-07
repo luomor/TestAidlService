@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-
+            Toast.makeText(getApplicationContext(), "失去连接", Toast.LENGTH_LONG).show();
         }
     };
 
