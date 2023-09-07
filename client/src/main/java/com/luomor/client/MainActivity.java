@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         m_updateFW.setOnClickListener(this);
     }
 
-
     @OnClick(R.id.send_message)
     public void onViewClicked(View view) {
         if (iAidlInterface != null) {
@@ -111,6 +110,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
         }
+    }
+    @OnClick(R.id.b_rebind)
+    public void onViewClicked2(View view) {
+        Intent intent = new Intent();
+        String ACTION = "AIDL.service";
+        intent.setAction(ACTION);
+        intent.setPackage("com.luomor.testaidlservice");
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -194,11 +201,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             Toast.makeText(getApplicationContext(), "失去连接", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent();
-            String ACTION = "AIDL.service";
-            intent.setAction(ACTION);
-            intent.setPackage("com.luomor.testaidlservice");
-            bindService(intent, serviceConnection, BIND_AUTO_CREATE);
         }
     };
 
