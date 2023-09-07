@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     ServiceConnector serviceConnector;
     PrinterOperation operation;
     private int PaperType;
-    private short		MATTE, PRINTCOUNT,PRINTMODE;
+    private short MATTE, PRINTCOUNT, PRINTMODE;
 
     //update firmware
     String m_fwversion, m_fwpath, m_fwfolderpath, m_fwBootpath, m_fwKernelpath;
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             if (messages != null && arrayAdapter != null) {
                 messages.add(message);
                 handler.sendEmptyMessage(1);
-                if(message.equals("startService")) {
+                if (message.equals("startService")) {
                     handlerPrinter.sendEmptyMessage(1);
                 }
             }
@@ -262,10 +262,10 @@ public class MainActivity extends AppCompatActivity {
     public void printerControl(int what) {
 
         String actionName = "action" + what;
-        Log.i(tag, "printerControl: "+actionName);
+        Log.i(tag, "printerControl: " + actionName);
         ErrorCode errorCode = null;
 
-        switch(what) {
+        switch (what) {
 
             //
             // Start background service
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
             /* print photo */
             case 3:
                 //operatePrinter(Action.USB_PRINT_PHOTOS);
-                callActionSelectorDiag( null, printPhotoPathMap, "photoSelect");
+                callActionSelectorDiag(null, printPhotoPathMap, "photoSelect");
                 break;
 
             /* reset printer */
@@ -327,11 +327,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 10:
-                m_serviceInfo.setText( serviceConnector.getHitiServiceStatus() );
+                m_serviceInfo.setText(serviceConnector.getHitiServiceStatus());
                 break;
 
             case 11:
-                callActionSelectorDiag( printerInfoDiag, null, "Printer information");
+                callActionSelectorDiag(printerInfoDiag, null, "Printer information");
                 break;
 
             case 12:
@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void appendInfo(String name, ErrorCode errorCode) {
-        if(errorCode != null && errorCode != ErrorCode.ERR_CODE_SUCCESS) {
+        if (errorCode != null && errorCode != ErrorCode.ERR_CODE_SUCCESS) {
             StringBuilder bu = new StringBuilder("\n>>>").append(name)
                     .append(": err<0x").append(Integer.toHexString(errorCode.value)).append(" ")
                     .append(errorCode.description).append(">");
