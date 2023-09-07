@@ -1,7 +1,9 @@
 package com.luomor.client;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -23,7 +25,9 @@ import com.luomor.testaidlservice.IAidlCallBack;
 import com.luomor.testaidlservice.IAidlInterface;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             m_clearText, m_serviceStatus, m_ejectJam, m_setAutoPowerOff, m_cleanPaperPath, m_updateFW;
     private IAidlInterface iAidlInterface;
     private int num;
+    private int PaperType;
+    private short MATTE, PRINTCOUNT, PRINTMODE;
+    String mSelectedPath = "";
+    String m_strTablesCopyRoot = "";
+    String m_strTablesRoot = "";
     private List<String> messages = new ArrayList<>();
     private ArrayAdapter arrayAdapter;
 
@@ -154,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
 
                     case R.id.b_printerInfo:
+                        callActionSelectorDiag(printerInfoDiag, null, "Printer information");
                         break;
 
                     case R.id.b_cleanPaperPath:
@@ -231,5 +241,110 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //解除绑定服务
         unbindService(serviceConnection);
         super.onDestroy();
+    }
+
+    static Map<String, Action> printerInfoDiag;
+    static Map<String, String> printPhotoPathMap;
+
+    static {
+        printerInfoDiag = new LinkedHashMap<>();
+
+        printerInfoDiag.put("Printer status", Action.USB_CHECK_PRINTER_STATUS);
+        printerInfoDiag.put("Model name", Action.USB_DEVICE_MODEL_NAME);
+        printerInfoDiag.put("Serial number", Action.USB_DEVICE_SERIAL_NUM);
+        printerInfoDiag.put("Firmware version", Action.USB_DEVICE_FW_VERSION);
+        printerInfoDiag.put("Ribbon information", Action.USB_DEVICE_RIBBON_INFO);
+        printerInfoDiag.put("Print count", Action.USB_DEVICE_PRINT_COUNT);
+        printerInfoDiag.put("Get Storage ID", Action.USB_GET_STORAGE_ID);
+        printerInfoDiag.put("Get Object Number", Action.USB_GET_OBJECT_NUMBER);
+        printerInfoDiag.put("Get Object Handle ID", Action.USB_GET_OBJECT_HANDLE_ID);
+        printerInfoDiag.put("Get Object Info", Action.USB_GET_OBJECT_INFO);
+        printerInfoDiag.put("Get Object data", Action.USB_GET_OBJECT_DATA);
+
+        printPhotoPathMap = new LinkedHashMap<>();
+
+        printPhotoPathMap.put("4x6 , photo1", "photo1");
+        printPhotoPathMap.put("photo2", "photo2");
+        printPhotoPathMap.put("photo3", "photo3");
+        printPhotoPathMap.put("photo4", "photo4");
+        printPhotoPathMap.put("4x6 split 2up , photo5", "pic1844x1240");
+    }
+
+    void callActionSelectorDiag(final Map<String, Action> map, final Map<String, String> map2, final String title) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setTitle(title);
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.select_dialog_singlechoice);
+
+        String[] strArr = new String[1];
+        strArr = map != null ? (String[]) (map.keySet().toArray(strArr)) : (String[]) (map2.keySet().toArray(strArr));
+
+        for (String str : strArr) {
+            arrayAdapter.add(str);
+        }
+
+        builderSingle.setCancelable(true);
+
+        builderSingle.setNegativeButton("cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setAdapter(
+                arrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                        String name = arrayAdapter.getItem(which);
+                        //printerService(name, map.get(name), null);
+
+                        if (map != null) {
+                            try {
+                                iAidlInterface.sendMessage("operatePrinter_" + name);
+                                num++;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (map2 != null) {
+
+                            switch (which) {
+                                case 4: {
+                                    PaperType = 5;
+                                }
+                                break;
+
+                                default: {
+                                    PaperType = 2;
+                                }
+                                break;
+
+                            }
+                            mSelectedPath = map2.get(name);
+/*
+							SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+							Date curDate = new Date(System.currentTimeMillis()) ;
+							String str1 = formatter1.format(curDate);
+							FileUtility.WriteFile("/storage/emulated/0/Android/data/com.hiti.test/files/Tables" +"/debug_"+str1+"_log", "** Write Debig Test \n");
+*/
+                            try {
+                                iAidlInterface.sendMessage("operatePrinter_" + Action.USB_PRINT_PHOTOS.name());
+                                num++;
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                });
+        builderSingle.show();
     }
 }

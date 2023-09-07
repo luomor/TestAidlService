@@ -314,8 +314,8 @@ public class MainActivity extends AppCompatActivity {
 
             /* print photo */
             case 3:
-                //operatePrinter(Action.USB_PRINT_PHOTOS);
-                callActionSelectorDiag(null, printPhotoPathMap, "photoSelect");
+                // path
+                operatePrinter(Action.USB_PRINT_PHOTOS);
                 break;
 
             /* reset printer */
@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case 11:
-                callActionSelectorDiag(printerInfoDiag, null, "Printer information");
+                operatePrinter(Action.USB_CHECK_PRINTER_STATUS);
                 break;
 
             case 12:
@@ -365,101 +365,6 @@ public class MainActivity extends AppCompatActivity {
                     .append(errorCode.description).append(">");
             m_info.append(bu.toString());
         }
-    }
-
-    static Map<String, Action> printerInfoDiag;
-    static Map<String, String> printPhotoPathMap;
-
-    static {
-        printerInfoDiag = new LinkedHashMap<>();
-
-        printerInfoDiag.put("Printer status", Action.USB_CHECK_PRINTER_STATUS);
-        printerInfoDiag.put("Model name", Action.USB_DEVICE_MODEL_NAME);
-        printerInfoDiag.put("Serial number", Action.USB_DEVICE_SERIAL_NUM);
-        printerInfoDiag.put("Firmware version", Action.USB_DEVICE_FW_VERSION);
-        printerInfoDiag.put("Ribbon information", Action.USB_DEVICE_RIBBON_INFO);
-        printerInfoDiag.put("Print count", Action.USB_DEVICE_PRINT_COUNT);
-        printerInfoDiag.put("Get Storage ID", Action.USB_GET_STORAGE_ID);
-        printerInfoDiag.put("Get Object Number", Action.USB_GET_OBJECT_NUMBER);
-        printerInfoDiag.put("Get Object Handle ID", Action.USB_GET_OBJECT_HANDLE_ID);
-        printerInfoDiag.put("Get Object Info", Action.USB_GET_OBJECT_INFO);
-        printerInfoDiag.put("Get Object data", Action.USB_GET_OBJECT_DATA);
-
-        printPhotoPathMap = new LinkedHashMap<>();
-
-        printPhotoPathMap.put("4x6 , photo1", "photo1");
-        printPhotoPathMap.put("photo2", "photo2");
-        printPhotoPathMap.put("photo3", "photo3");
-        printPhotoPathMap.put("photo4", "photo4");
-        printPhotoPathMap.put("4x6 split 2up , photo5", "pic1844x1240");
-    }
-
-    void callActionSelectorDiag(final Map<String, Action> map, final Map<String, String> map2, final String title) {
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
-        builderSingle.setTitle(title);
-
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.select_dialog_singlechoice);
-
-        String[] strArr = new String[1];
-        strArr = map != null ? (String[]) (map.keySet().toArray(strArr)) : (String[]) (map2.keySet().toArray(strArr));
-
-        for (String str : strArr) {
-            arrayAdapter.add(str);
-        }
-
-        builderSingle.setCancelable(true);
-
-        builderSingle.setNegativeButton("cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builderSingle.setAdapter(
-                arrayAdapter,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-
-                        String name = arrayAdapter.getItem(which);
-                        //printerService(name, map.get(name), null);
-
-                        if (map != null) {
-                            operatePrinter(map.get(name));
-                        }
-                        if (map2 != null) {
-
-                            switch (which) {
-                                case 4: {
-                                    PaperType = 5;
-                                }
-                                break;
-
-                                default: {
-                                    PaperType = 2;
-                                }
-                                break;
-
-                            }
-                            mSelectedPath = map2.get(name);
-/*
-							SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-							Date curDate = new Date(System.currentTimeMillis()) ;
-							String str1 = formatter1.format(curDate);
-							FileUtility.WriteFile("/storage/emulated/0/Android/data/com.hiti.test/files/Tables" +"/debug_"+str1+"_log", "** Write Debig Test \n");
-*/
-                            operatePrinter(Action.USB_PRINT_PHOTOS);
-                        }
-
-                    }
-                });
-        builderSingle.show();
     }
 
     interface IFirmware {
