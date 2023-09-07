@@ -109,60 +109,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String actionName = (String) v.getTag();
         Log.i(tag, "onClick actionName: " + actionName);
 
-        switch (v.getId()) {
-
-            //
-            // Start background service
-            //
-            case R.id.b_startService:
-                if (iAidlInterface != null) {
-                    try {
+        if (iAidlInterface != null) {
+            try {
+                switch (v.getId()) {
+                    //
+                    // Start background service
+                    //
+                    case R.id.b_startService:
                         iAidlInterface.sendMessage("startService");
-                        num++;
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
+                        break;
+
+                    //
+                    // Stop and destroy background service
+                    //
+                    case R.id.b_stopService:
+
+                        break;
+
+                    /* print photo */
+                    case R.id.b_printPhoto:
+                        break;
+
+                    /* reset printer */
+                    case R.id.b_resetPrinter:
+                        break;
+
+                    /* clear error and continue job */
+                    case R.id.b_resumeJob:
+                        break;
+
+                    case R.id.b_updateFW:
+                        break;
+
+                    case R.id.b_ejectPaperJam:
+                        break;
+
+                    case R.id.b_setAutoPowerOff:
+                        break;
+                    case R.id.b_clearText:
+                        break;
+
+                    case R.id.b_serviceStatus:
+                        iAidlInterface.sendMessage("serviceStatus");
+                        break;
+
+                    case R.id.b_printerInfo:
+                        break;
+
+                    case R.id.b_cleanPaperPath:
+                        break;
                 }
-                break;
-
-            //
-            // Stop and destroy background service
-            //
-            case R.id.b_stopService:
-
-                break;
-
-            /* print photo */
-            case R.id.b_printPhoto:
-                break;
-
-            /* reset printer */
-            case R.id.b_resetPrinter:
-                break;
-
-            /* clear error and continue job */
-            case R.id.b_resumeJob:
-                break;
-
-            case R.id.b_updateFW:
-                break;
-
-            case R.id.b_ejectPaperJam:
-                break;
-
-            case R.id.b_setAutoPowerOff:
-                break;
-            case R.id.b_clearText:
-                break;
-
-            case R.id.b_serviceStatus:
-                break;
-
-            case R.id.b_printerInfo:
-                break;
-
-            case R.id.b_cleanPaperPath:
-                break;
+                num++;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 
