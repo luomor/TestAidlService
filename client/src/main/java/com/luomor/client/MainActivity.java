@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String tag = MainActivity.class.getSimpleName();
+
     @BindView(R.id.list_view)
     ListView listView;
     Button m_startService, m_stopServie, m_printerInfo, m_printPhoto, m_resetPrinter, m_resumeJob,
@@ -61,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
         m_serviceStatus = (Button) findViewById(R.id.b_serviceStatus);
         m_setAutoPowerOff = (Button) findViewById(R.id.b_setAutoPowerOff);
         m_updateFW = (Button) findViewById(R.id.b_updateFW);
+
+        m_startService.setOnClickListener(this);
+        m_stopServie.setOnClickListener(this);
+        m_printerInfo.setOnClickListener(this);
+        m_printPhoto.setOnClickListener(this);
+        m_resetPrinter.setOnClickListener(this);
+        m_resumeJob.setOnClickListener(this);
+        m_clearText.setOnClickListener(this);
+        m_serviceStatus.setOnClickListener(this);
+        m_ejectJam.setOnClickListener(this);
+        m_setAutoPowerOff.setOnClickListener(this);
+        m_cleanPaperPath.setOnClickListener(this);
+        m_updateFW.setOnClickListener(this);
     }
 
 
@@ -85,6 +101,68 @@ public class MainActivity extends AppCompatActivity {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        String actionName = (String) v.getTag();
+        Log.i(tag, "onClick actionName: " + actionName);
+
+        switch (v.getId()) {
+
+            //
+            // Start background service
+            //
+            case R.id.b_startService:
+                if (iAidlInterface != null) {
+                    try {
+                        iAidlInterface.sendMessage("startService");
+                        num++;
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            //
+            // Stop and destroy background service
+            //
+            case R.id.b_stopService:
+
+                break;
+
+            /* print photo */
+            case R.id.b_printPhoto:
+                break;
+
+            /* reset printer */
+            case R.id.b_resetPrinter:
+                break;
+
+            /* clear error and continue job */
+            case R.id.b_resumeJob:
+                break;
+
+            case R.id.b_updateFW:
+                break;
+
+            case R.id.b_ejectPaperJam:
+                break;
+
+            case R.id.b_setAutoPowerOff:
+                break;
+            case R.id.b_clearText:
+                break;
+
+            case R.id.b_serviceStatus:
+                break;
+
+            case R.id.b_printerInfo:
+                break;
+
+            case R.id.b_cleanPaperPath:
+                break;
         }
     }
 
