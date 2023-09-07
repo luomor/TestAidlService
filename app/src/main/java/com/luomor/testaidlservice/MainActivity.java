@@ -361,9 +361,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler handlerPrinter = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            if(msg.what == 1) {
-
-            }
+            printerControl(msg.what);
         }
     };
 
