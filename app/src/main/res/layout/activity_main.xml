@@ -59,10 +59,11 @@
                 android:scaleType="centerCrop"
                 android:background="@android:color/holo_green_light"
                 />
+
             <ListView
                 android:id="@+id/list_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="411dp">
 
             </ListView>
 
